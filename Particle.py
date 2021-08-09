@@ -27,20 +27,27 @@ class Particle:
     def finished(self):
         return self.lifetime < 0
     
+    
     def apply_force(self, force): # Force is a PVector.
         # f = ma, so a = F/m. we assume that m = 1.
         self.acc.add(force)
         
+        
     def edges(self):
         if self.pos.x + self.r > width:
             self.vel.x *= -1
+            self.pos.x = width-self.r
         if self.pos.x - self.r < 0:
             self.vel.x *= -1
+            self.pos.x = self.r
             
         if self.pos.y + self.r > height:
             self.vel.y *= -1
+            self.pos.y = height-self.r
         if self.pos.y - self.r < 0:
             self.vel.y *= -1
+            self.pos.y = self.r
+            
             
     # Next up is show. In __init__(self), remember that I said the self.lifetime is
     # the transparency?
@@ -57,6 +64,6 @@ class Particle:
         self.pos.add(self.vel)
         self.acc = PVector(0, 0)
         
-        self.lifetime -= random(1)
+        self.lifetime -= random(3)
     
     
