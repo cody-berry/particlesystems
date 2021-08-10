@@ -19,44 +19,39 @@
 
 
 
+from Emitter import *
 from Particle import *
 
 
 def setup():
-    global particles
+    global emitters
     size(600, 600)
     colorMode(HSB, 360, 100, 100, 100)
-    particles = []
+    emitters = []
     
 def draw():
-    global particles
+    global emitters
     background(234, 84, 33)
     
-    particle_emit_rate = 5
-    
-    for i in range(particle_emit_rate):
-        particles.append(Particle(mouseX, mouseY))
-    
-    gravity = PVector(0, 9.8/frameRate) # 0.163 is an estimate of 9.8/60, the gravity on 
-    # the planet divided by the frames per second.
-    
-    
-    for i in range(len(particles)-1, 0, -1):
-        p = particles[i]
-        
-        p.apply_force(gravity)
-        p.edges()
-        p.update()
-        p.show()
-        if p.finished():
-            particles.pop(i)
+    for emitter in emitters:
+        emitter.update()
+        emitter.show()
     
     # I want the hue of the text to be related to the number of particles, 
     # indicating if the program is slow or not. I chose 270 just for a rough 
     # number that is a guess number of particles that makes the computer slow
-    # down, and can be an interger random non-beginning average. 
+    # down, and can be an interger random non-beginning average.
     
-    fill(map(len(particles), 0, 270, 180, 0), 50, 70)
-    text(len(particles), width-50, height-50)
+    total = 0
+    
+    for i in range(len(emitters)):
+        total += len(emitters[i].particles)
+    
+    fill(map(total, 0, 300, 180, 360), 50, 70)
+    text(total, width-50, height-50)
+    
+def mousePressed():
+    global emitters
+    emitters.append(Emitter(mouseX, mouseY))
         
         

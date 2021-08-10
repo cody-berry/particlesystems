@@ -64,6 +64,6 @@ class Particle:
         self.pos.add(self.vel)
         self.acc = PVector(0, 0)
         
-        self.lifetime -= random(3)
+        self.lifetime -= random(200)
     
     
