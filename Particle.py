@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# With Daniel Shiffman
+# With Daniel Shiffman 
 # Paper by William Reeves
 # Created in 1983
 # Particle Systems - A Technique for Modeling a Class of Fuzzy Objects
@@ -10,15 +10,24 @@
 #     Force
 #     And... More!
 
+# Texturegen is readied up for substituting into Particle.py.
 
 class Particle:
     def __init__(self, x, y):
         self.pos = PVector(x, y)
         # if only multiply by a constant, then it would look like a ring and we want
         # it to look more chaotic.
-        self.vel = PVector.random2D().mult(random(1, 5)) 
+        self.vel = PVector(random(-2, 2), random(0, -1))
         self.acc = PVector(0, 0)
-        self.r = random(5, 16)
+        self.r = 64
+        blendMode(ADD)
+        self.img = loadImage(str(self.r) + ".png") # Feel free to toggle between:
+            # 16.png
+            # 32.png
+            # 64.png
+            # 128.png
+            # 256.png
+            # 512.png
         # self.lifetime equals the transparency.
         self.lifetime = 100
         
@@ -52,9 +61,8 @@ class Particle:
     # Next up is show. In __init__(self), remember that I said the self.lifetime is
     # the transparency?
     def show(self):
-        stroke(0, 0, 100, self.lifetime)
-        fill(0, 0, 100, self.lifetime)
-        circle(self.pos.x, self.pos.y, self.r)
+        tint(5, 99, 75, self.lifetime)
+        image(self.img, self.pos.x, self.pos.y)
         
     # Last is update. δ/δx(position) = velocity. δ/δ(velocity) = acceleration. 
     # δ/δx(acceleration) = -acceleration. Life also decreases.
@@ -64,6 +72,6 @@ class Particle:
         self.pos.add(self.vel)
         self.acc = PVector(0, 0)
         
-        self.lifetime -= random(200)
+        self.lifetime -= random(8)
     
     

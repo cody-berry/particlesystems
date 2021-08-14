@@ -8,7 +8,7 @@ class Emitter:
         self.particles = [] # the list of particles
         
     def update(self):
-        particle_emit_rate = int(random(30))
+        particle_emit_rate = 3
     
         for i in range(particle_emit_rate):
             self.particles.append(Particle(self.pos.x, self.pos.y))

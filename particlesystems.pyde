@@ -16,6 +16,7 @@
 # v0.01 - Make Particle.py, create some particles
 # v0.02 - Remove particles who are finished
 # v0.03 - Make an emmiter
+# v0.04 - Substitute texture in for particles
 
 
 
@@ -25,7 +26,7 @@ from Particle import *
 
 def setup():
     global emitters
-    size(600, 600)
+    size(1000, 1000)
     colorMode(HSB, 360, 100, 100, 100)
     emitters = []
     
