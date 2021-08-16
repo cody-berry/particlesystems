@@ -12,14 +12,14 @@
 
 # Texturegen is readied up for substituting into Particle.py.
 
-class Particle:
+class Particle(object):
     def __init__(self, x, y):
         self.pos = PVector(x, y)
         # if only multiply by a constant, then it would look like a ring and we want
         # it to look more chaotic.
-        self.vel = PVector(random(-2, 2), random(0, -1))
+        self.vel = PVector(random(-10, 10), random(-10, 0))
         self.acc = PVector(0, 0)
-        self.r = 64
+        self.r = 16
         blendMode(ADD)
         self.img = loadImage(str(self.r) + ".png") # Feel free to toggle between:
             # 16.png
@@ -72,6 +72,6 @@ class Particle:
         self.pos.add(self.vel)
         self.acc = PVector(0, 0)
         
-        self.lifetime -= random(8)
+        self.lifetime -= random(6)
     
     

@@ -17,11 +17,16 @@
 # v0.02 - Remove particles who are finished
 # v0.03 - Make an emmiter
 # v0.04 - Substitute texture in for particles
+# v0.05 - Add confetti
+# v0.06 - Add hammer and middle mouse click
 
 
 
-from Emitter import *
+
 from Particle import *
+from Confetti import * 
+from Hammer import *
+from Emitter import *
 
 
 def setup():
@@ -29,6 +34,7 @@ def setup():
     size(1000, 1000)
     colorMode(HSB, 360, 100, 100, 100)
     emitters = []
+    frameRate(1000)
     
 def draw():
     global emitters
@@ -50,9 +56,16 @@ def draw():
     
     fill(map(total, 0, 300, 180, 360), 50, 70)
     text(total, width-50, height-50)
+    fill(map(len(emitters), 0, 10, 180, 360), 50, 70)
+    text(len(emitters), width-50, height-100)
     
 def mousePressed():
     global emitters
-    emitters.append(Emitter(mouseX, mouseY))
+    if mouseButton == LEFT:
+        emitters.append(Emitter(mouseX, mouseY, "particle"))
+    if mouseButton == CENTER:
+        emitters.append(Emitter(mouseX, mouseY, "hammer"))
+    if mouseButton == RIGHT:
+        emitters.append(Emitter(mouseX, mouseY, "confetti"))
         
         
